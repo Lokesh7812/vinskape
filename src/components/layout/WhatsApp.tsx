@@ -1,0 +1,1 @@
+export function WhatsApp({number,message}:{number:string;message:string}){const href=`https://wa.me/${number.replace(/\D/g,"")}?text=${encodeURIComponent(message)}`;return <a className="whatsapp" href={href} target="_blank" rel="noreferrer" aria-label="Message Vinskape on WhatsApp"><span>◔</span><i>WhatsApp us</i></a>}
