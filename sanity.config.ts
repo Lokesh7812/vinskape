@@ -17,6 +17,7 @@ export default defineConfig({
   title: "Vinskape Content Studio",
   projectId,
   dataset,
+  basePath: "/admin",
   plugins: [structureTool()],
   schema: {
     types: schemaTypes,
