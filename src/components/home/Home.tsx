@@ -1,17 +1,223 @@
 import Image from "next/image";
+import Link from "next/link";
 import { Hero } from "./Hero";
-import { Navigation } from "../layout/Navigation";
-import { WhatsApp } from "../layout/WhatsApp";
+import { HomeContact } from "./HomeContact";
 import type { HomeData } from "@/sanity/types";
-const Arrow=()=> <span className="arrow">→</span>;
-export function Home({data}:{data:HomeData}) { const c=data.brand.contact; const intro=data.introduction; const ctaImage=data.heroSlides.at(-1)?.image ?? data.projects[0]?.image; return <main><Navigation brand={data.brand.name} items={data.navigation}/><Hero slides={data.heroSlides}/>
- <section className="intro shell"><div className="intro-image"><Image src={intro.image.url} alt={intro.image.alt} fill sizes="(max-width: 800px) 100vw, 42vw"/></div><div className="intro-copy"><p className="eyebrow dark">{intro.eyebrow}</p><h2>{intro.heading}</h2><p>{intro.description}</p><button className="link-button">{intro.cta.text} <Arrow/></button><div className="metrics">{intro.statistics.map(stat=>{const match=stat.value.match(/^(\d+)(.*)$/);return <div key={stat.label}><strong>{match?.[1] ?? stat.value}<span>{match?.[2]}</span></strong><small>{stat.label}</small></div>})}</div><p className="demo-note">Demo metrics — to be confirmed with Vinskape.</p></div></section>
- <section className="services shell"><div className="section-head"><p className="eyebrow dark">WHAT WE SHAPE</p><h2>Designing every kind<br/>of <em>space.</em></h2><p>From the first idea to the final finish, every project begins with a deeper understanding of how it should feel.</p></div><div className="service-grid">{data.services.map((s,i)=><article className="service-card" key={s.name}><div className="card-image"><Image src={s.image.url} alt={s.image.alt} fill sizes="(max-width: 800px) 100vw, 33vw"/></div><p>0{i+1}</p><h3>{s.name}</h3><p className="service-desc">{s.description}</p><ul>{s.items.map(x=><li key={x}>{x}</li>)}</ul><button className="round-arrow" aria-label={`Explore ${s.name}`}>↗</button></article>)}</div></section>
- <section className="projects"><div className="shell"><div className="project-heading"><p className="eyebrow">SELECTED SPACES</p><h2>Stories told<br/>through <em>space.</em></h2><button className="button outline">View all projects <Arrow/></button></div><div className="project-grid">{data.projects.map((p,i)=><article key={p.name} className={`project project-${i}`}><Image src={p.image.url} alt={p.image.alt} fill sizes="(max-width: 800px) 100vw, 50vw"/><div><p>{p.status} · {p.category}</p><h3>{p.name}</h3><span>{p.location} <Arrow/></span></div></article>)}</div></div></section>
- <section className="portfolio shell"><div className="section-head"><p className="eyebrow dark">EXPLORE THE DETAILS</p><h2>A place for every<br/><em>way of living.</em></h2></div><div className="portfolio-grid">{data.portfolio.map((p,i)=><button key={p.name} className={`portfolio-item tile-${i}`}><Image src={p.image.url} alt={p.image.alt} fill sizes="(max-width: 800px) 50vw, 25vw"/><span>{p.name}<Arrow/></span></button>)}</div></section>
- <section className="why"><div className="shell why-inner"><div><p className="eyebrow">THE VINSKAPE WAY</p><h2>Designed with purpose.<br/><em>Crafted with precision.</em></h2></div><div className="benefits">{[["01","Thoughtful design","Every space starts with listening to the life that will unfold within it."],["02","Functional luxury","Beauty and practicality are never separate ideas."],["03","Attention to detail","Light, proportion, material and finish, considered as one."],["04","End-to-end approach","From early concept through to the smallest finishing touch."]].map(x=><div key={x[0]}><span>{x[0]}</span><h3>{x[1]}</h3><p>{x[2]}</p></div>)}</div></div></section>
- <section className="partners shell"><p className="eyebrow dark">OUR TRUSTED PARTNERS</p><div><h2>Good work is never<br/>done <em>alone.</em></h2><p>We collaborate with carefully chosen makers and suppliers. Partner identities shown here are neutral demo placeholders.</p></div><div className="logos">{["FORM","ATELIER","MATERIA","NORTHLINE","STUDIO 06"].map(x=><span key={x}>{x}</span>)}</div></section>
- <section className="testimonials shell"><p className="eyebrow dark">CLIENT NOTES</p><div className="quote-mark">“</div>{data.testimonials.map((t,i)=><article key={t.name+i} className={i?"hidden-quote":""}><blockquote>{t.quote}</blockquote><p><strong>{t.name}</strong> · {t.place}<br/><small>{t.project} — Demo testimonial</small></p></article>)}</section>
- <section className="cta">{ctaImage?.url&&<Image src={ctaImage.url} alt={ctaImage.alt || ""} fill sizes="100vw"/>}<div className="cta-overlay"/><div className="shell cta-content"><p className="eyebrow">BEGIN WITH A CONVERSATION</p><h2>Your space deserves more<br/>than <em>ordinary.</em></h2><p>Let’s turn your ideas into a space you’ll love to live, work and experience.</p><button className="button light">Start a conversation <Arrow/></button></div></section>
- <section className="contact shell"><p className="eyebrow dark">CONTACT VINSKAPE</p><h2>Bring us the beginning<br/>of an <em>idea.</em></h2><div className="contact-grid"><a href={`tel:${c.phone}`}>{c.phone}</a><a href={`mailto:${c.email}`}>{c.email}</a><span>{c.address}</span><span>{c.hours}</span></div></section>
- <footer><div className="shell footer-top"><div><h2>{data.brand.name}</h2><p>{data.brand.tagline}</p></div><div className="footer-links"><span>Company</span><span>Services</span><span>Portfolio</span><span>Contact</span></div><p className="footer-contact">{c.phone}<br/>{c.email}</p></div><div className="shell footer-bottom"><span>© 2026 Vinskape. All rights reserved.</span><span>Instagram · Facebook · LinkedIn</span></div></footer><WhatsApp number={c.whatsapp} message={c.whatsappMessage}/></main> }
+
+const Arrow = () => <span className="arrow">→</span>;
+
+export function Home({ data }: { data: HomeData }) {
+  const c = data.brand.contact;
+  const intro = data.introduction;
+
+  return (
+    <main>
+      <Hero slides={data.heroSlides} />
+
+      {/* Intro Section */}
+      <section className="intro shell">
+        <div className="intro-image">
+          <Image src={intro.image.url} alt={intro.image.alt} fill sizes="(max-width: 800px) 100vw, 42vw" priority />
+        </div>
+        <div className="intro-copy">
+          <p className="eyebrow dark">{intro.eyebrow}</p>
+          <h2>{intro.heading}</h2>
+          <p>{intro.description}</p>
+          <Link href="/about" className="link-button">
+            {intro.cta.text} <Arrow />
+          </Link>
+          <div className="metrics">
+            {intro.statistics.map((stat) => {
+              const match = stat.value.match(/^(\d+)(.*)$/);
+              return (
+                <div key={stat.label}>
+                  <strong>{match?.[1] ?? stat.value}<span>{match?.[2]}</span></strong>
+                  <small>{stat.label}</small>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* Services Section */}
+      <section className="services shell">
+        <div className="section-head">
+          <p className="eyebrow dark">WHAT WE SHAPE</p>
+          <h2>Designing every kind<br />of <em>space.</em></h2>
+          <div>
+            <p>From the first idea to the final finish, every project begins with a deeper understanding of how it should feel.</p>
+            <Link href="/services" className="link-button" style={{ marginTop: "12px", display: "inline-block" }}>
+              Explore All Services <Arrow />
+            </Link>
+          </div>
+        </div>
+        <div className="service-grid">
+          {data.services.map((s, i) => (
+            <Link
+              href={`/services#${s.slug || s.name.toLowerCase()}`}
+              className="service-card"
+              key={s.name}
+              style={{ textDecoration: "none", color: "inherit", display: "block" }}
+            >
+              <div className="card-image">
+                <Image src={s.image.url} alt={s.image.alt} fill sizes="(max-width: 800px) 100vw, 33vw" />
+              </div>
+              <p>0{i + 1}</p>
+              <h3>{s.name}</h3>
+              <p className="service-desc">{s.description}</p>
+              <ul>{s.items.map((x) => <li key={x}>{x}</li>)}</ul>
+              <span className="round-arrow" aria-label={`Explore ${s.name}`} style={{ display: "inline-flex", alignItems: "center", justifyContent: "center" }}>
+                ↗
+              </span>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      {/* Projects Section */}
+      <section className="projects">
+        <div className="shell">
+          <div className="project-heading">
+            <p className="eyebrow">SELECTED SPACES</p>
+            <h2>Stories told<br />through <em>space.</em></h2>
+            <Link href="/gallery" className="button outline">
+              View all projects <Arrow />
+            </Link>
+          </div>
+          <div className="project-grid">
+            {data.projects.map((p, i) => (
+              <Link
+                key={p.name}
+                href="/gallery"
+                className={`project project-${i}`}
+                style={{ textDecoration: "none", color: "inherit", display: "block" }}
+              >
+                <Image src={p.image.url} alt={p.image.alt} fill sizes="(max-width: 800px) 100vw, 50vw" />
+                <div>
+                  <p>{p.status} · {p.category}</p>
+                  <h3>{p.name}</h3>
+                  <span>{p.location} <Arrow /></span>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Portfolio Section: A place for every way of living */}
+      <section className="portfolio shell">
+        <div className="section-head">
+          <p className="eyebrow dark">EXPLORE THE DETAILS</p>
+          <h2>A place for every<br /><em>way of living.</em></h2>
+          <div>
+            <p>Every room has a purpose, a mood and a texture. Click any space to explore our curated portfolio.</p>
+            <Link href="/portfolio" className="link-button" style={{ marginTop: "12px", display: "inline-block" }}>
+              Open Full Portfolio <Arrow />
+            </Link>
+          </div>
+        </div>
+        <div className="portfolio-grid">
+          {data.portfolio.map((p, i) => (
+            <Link
+              key={p.name}
+              href={`/portfolio?category=${p.slug || "living-room"}`}
+              className={`portfolio-item tile-${i}`}
+              aria-label={`View ${p.name} portfolio`}
+              style={{ display: "block", textDecoration: "none" }}
+            >
+              <Image src={p.image.url} alt={p.image.alt} fill sizes="(max-width: 800px) 50vw, 25vw" />
+              <span>{p.name}<Arrow /></span>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      {/* The Vinskape Way */}
+      <section className="why">
+        <div className="shell why-inner">
+          <div>
+            <p className="eyebrow">THE VINSKAPE WAY</p>
+            <h2>Designed with purpose.<br /><em>Crafted with precision.</em></h2>
+            <Link href="/about" className="button outline" style={{ marginTop: "28px", display: "inline-block" }}>
+              Our Story & Ethos <Arrow />
+            </Link>
+          </div>
+          <div className="benefits">
+            {[
+              ["01", "Thoughtful design", "Every space starts with listening to the life that will unfold within it."],
+              ["02", "Functional luxury", "Beauty and practicality are never separate ideas."],
+              ["03", "Attention to detail", "Light, proportion, material and finish, considered as one."],
+              ["04", "End-to-end approach", "From early concept through to the smallest finishing touch."],
+            ].map((x) => (
+              <div key={x[0]}>
+                <span>{x[0]}</span>
+                <h3>{x[1]}</h3>
+                <p>{x[2]}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Partners / Dealerships */}
+      <section className="partners shell">
+        <p className="eyebrow dark">OUR TRUSTED PARTNERS & DEALERSHIPS</p>
+        <div>
+          <h2>Good work is never<br />done <em>alone.</em></h2>
+          <p>We collaborate with India’s leading premium makers, fittings and hardware suppliers.</p>
+        </div>
+        <div className="logos" style={{ display: "flex", flexWrap: "wrap", gap: "12px", alignItems: "center" }}>
+          {["Greenlam", "Merino", "Century Laminates", "Stylam", "Hettich", "Ebco", "Faber", "Bosch", "Samsung", "Philips", "Venus", "AO Smith"].map((x) => (
+            <Link
+              key={x}
+              href="/dealerships"
+              style={{
+                display: "inline-block",
+                padding: "8px 18px",
+                border: "1px solid #d4cdc3",
+                borderRadius: "30px",
+                color: "#4a453e",
+                textDecoration: "none",
+                fontSize: "13px",
+                letterSpacing: "0.04em",
+                transition: "all 0.25s ease",
+              }}
+            >
+              {x}
+            </Link>
+          ))}
+        </div>
+        <div style={{ marginTop: "28px" }}>
+          <Link href="/dealerships" className="link-button">
+            View all 24+ authorized dealerships <Arrow />
+          </Link>
+        </div>
+      </section>
+
+      {/* Testimonials */}
+      <section className="testimonials shell">
+        <p className="eyebrow dark">CLIENT NOTES</p>
+        <div className="quote-mark">&ldquo;</div>
+        {data.testimonials.map((t, i) => (
+          <article key={t.name + i} className={i ? "hidden-quote" : ""}>
+            <blockquote>{t.quote}</blockquote>
+            <p>
+              <strong>{t.name}</strong> · {t.place}
+              <br />
+              <small>{t.project}</small>
+            </p>
+          </article>
+        ))}
+        <div style={{ marginTop: "32px" }}>
+          <Link href="/testimonials" className="link-button">
+            Read all client testimonials <Arrow />
+          </Link>
+        </div>
+      </section>
+
+      {/* Modern Luxury Home Contact & Inquiry Section */}
+      <HomeContact contact={c} />
+    </main>
+  );
+}
