@@ -75,35 +75,6 @@ export function Home({ data }: { data: HomeData }) {
         </div>
       </section>
 
-      {/* Projects Section */}
-      <section className="projects">
-        <div className="shell">
-          <div className="project-heading">
-            <p className="eyebrow">SELECTED SPACES</p>
-            <h2>Stories told<br />through <em>space.</em></h2>
-            <Link href="/gallery" className="button outline">
-              View all projects <Arrow />
-            </Link>
-          </div>
-          <div className="project-grid">
-            {data.projects.map((p, i) => (
-              <Link
-                key={p.name}
-                href="/gallery"
-                className={`project project-${i}`}
-                style={{ textDecoration: "none", color: "inherit", display: "block" }}
-              >
-                <Image src={p.image.url} alt={p.image.alt} fill sizes="(max-width: 800px) 100vw, 50vw" />
-                <div>
-                  <p>{p.status} · {p.category}</p>
-                  <h3>{p.name}</h3>
-                  <span>{p.location} <Arrow /></span>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* Portfolio Section: A place for every way of living */}
       <section className="portfolio shell">
@@ -120,8 +91,8 @@ export function Home({ data }: { data: HomeData }) {
         <div className="portfolio-grid">
           {data.portfolio.map((p, i) => (
             <Link
-              key={p.name}
-              href={`/portfolio?category=${p.slug || "living-room"}`}
+              key={`${p.slug || p.name}-${i}`}
+              href={`/portfolio/${p.slug || "living-room"}`}
               className={`portfolio-item tile-${i}`}
               aria-label={`View ${p.name} portfolio`}
               style={{ display: "block", textDecoration: "none" }}
@@ -168,42 +139,54 @@ export function Home({ data }: { data: HomeData }) {
           <p>We collaborate with India's leading premium makers, fittings and hardware suppliers.</p>
         </div>
         <div className="brand-logos-grid">
-          {[
-            { file: "01_Greenlam.png", name: "Greenlam" },
-            { file: "02_Merino.png", name: "Merino" },
-            { file: "03_Century_Laminates.png", name: "Century Laminates" },
-            { file: "04_Stylam.png", name: "Stylam" },
-            { file: "05_Catch.png", name: "Catch" },
-            { file: "06_AICA.png", name: "AICA" },
-            { file: "07_Hettich.png", name: "Hettich" },
-            { file: "08_Ebco.png", name: "Ebco" },
-            { file: "09_Slate.png", name: "Slate" },
-            { file: "10_Olive.png", name: "Olive" },
-            { file: "11_Hablo.png", name: "Hablo" },
-            { file: "12_Faber.png", name: "Faber" },
-            { file: "13_Carysil.png", name: "Carysil" },
-            { file: "14_Bosch.png", name: "Bosch" },
-            { file: "15_LG.png", name: "LG" },
-            { file: "16_Samsung.png", name: "Samsung" },
-            { file: "17_Crompton_Greaves.png", name: "Crompton Greaves" },
-            { file: "18_Philips.png", name: "Philips" },
-            { file: "19_Venus.png", name: "Venus" },
-            { file: "20_VU.png", name: "VU" },
-            { file: "21_AO_Smith.png", name: "AO Smith" },
-            { file: "22_Wafefit.png", name: "Wafefit" },
-            { file: "23_Peps.png", name: "Peps" },
-            { file: "24_Restolex.png", name: "Restolex" },
-          ].map((brand) => (
-            <Link key={brand.name} href="/dealerships" className="brand-logo-item">
-              <Image
-                src={`/24_separate_brand_logos/${brand.file}`}
-                alt={brand.name}
-                width={140}
-                height={80}
-                style={{ objectFit: "contain" }}
-              />
-            </Link>
-          ))}
+          {data.dealers && data.dealers.length > 0
+            ? data.dealers.map((brand) => (
+                <Link key={brand.name} href="/dealerships" className="brand-logo-item">
+                  <Image
+                    src={brand.image.url}
+                    alt={brand.name}
+                    width={140}
+                    height={80}
+                    style={{ objectFit: "contain" }}
+                  />
+                </Link>
+              ))
+            : [
+                { file: "01_Greenlam.png", name: "Greenlam" },
+                { file: "02_Merino.png", name: "Merino" },
+                { file: "03_Century_Laminates.png", name: "Century Laminates" },
+                { file: "04_Stylam.png", name: "Stylam" },
+                { file: "05_Catch.png", name: "Catch" },
+                { file: "06_AICA.png", name: "AICA" },
+                { file: "07_Hettich.png", name: "Hettich" },
+                { file: "08_Ebco.png", name: "Ebco" },
+                { file: "09_Slate.png", name: "Slate" },
+                { file: "10_Olive.png", name: "Olive" },
+                { file: "11_Hablo.png", name: "Hablo" },
+                { file: "12_Faber.png", name: "Faber" },
+                { file: "13_Carysil.png", name: "Carysil" },
+                { file: "14_Bosch.png", name: "Bosch" },
+                { file: "15_LG.png", name: "LG" },
+                { file: "16_Samsung.png", name: "Samsung" },
+                { file: "17_Crompton_Greaves.png", name: "Crompton Greaves" },
+                { file: "18_Philips.png", name: "Philips" },
+                { file: "19_Venus.png", name: "Venus" },
+                { file: "20_VU.png", name: "VU" },
+                { file: "21_AO_Smith.png", name: "AO Smith" },
+                { file: "22_Wafefit.png", name: "Wafefit" },
+                { file: "23_Peps.png", name: "Peps" },
+                { file: "24_Restolex.png", name: "Restolex" },
+              ].map((brand) => (
+                <Link key={brand.name} href="/dealerships" className="brand-logo-item">
+                  <Image
+                    src={`/24_separate_brand_logos/${brand.file}`}
+                    alt={brand.name}
+                    width={140}
+                    height={80}
+                    style={{ objectFit: "contain" }}
+                  />
+                </Link>
+              ))}
         </div>
         <div style={{ marginTop: "28px" }}>
           <Link href="/dealerships" className="link-button">

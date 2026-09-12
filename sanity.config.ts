@@ -2,6 +2,8 @@ import { defineConfig } from "sanity";
 import { structureTool } from "sanity/structure";
 import { schemaTypes } from "./src/sanity/schemas";
 
+import { deskStructure } from "./src/sanity/deskStructure";
+
 const projectId =
   process.env.NEXT_PUBLIC_SANITY_PROJECT_ID ||
   process.env.SANITY_STUDIO_PROJECT_ID ||
@@ -18,7 +20,11 @@ export default defineConfig({
   projectId,
   dataset,
   basePath: "/admin",
-  plugins: [structureTool()],
+  plugins: [
+    structureTool({
+      structure: deskStructure,
+    }),
+  ],
   schema: {
     types: schemaTypes,
   },

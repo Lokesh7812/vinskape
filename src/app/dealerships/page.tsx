@@ -1,13 +1,17 @@
 import { PageHero } from "@/components/layout/PageHero";
 import Image from "next/image";
 import type { Metadata } from "next";
+import { client } from "@/sanity/lib/client";
+
+export const revalidate = 0;
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "Our Dealerships | VINSKAPE Interior Design",
   description: "Vinskape's authorized dealership partners for premium interior materials and appliances.",
 };
 
-const dealerships = [
+const defaultDealerships = [
   // Laminates & Surfaces
   { name: "Greenlam", category: "Laminates & Surfaces", logo: "/24_separate_brand_logos/01_Greenlam.png" },
   { name: "Merino", category: "Laminates & Surfaces", logo: "/24_separate_brand_logos/02_Merino.png" },
@@ -38,13 +42,31 @@ const dealerships = [
   { name: "Restolex", category: "Comfort & Furnishing", logo: "/24_separate_brand_logos/24_Restolex.png" },
 ];
 
-const groupedByCategory = dealerships.reduce<Record<string, typeof dealerships>>((acc, d) => {
-  if (!acc[d.category]) acc[d.category] = [];
-  acc[d.category].push(d);
-  return acc;
-}, {});
+export default async function DealershipsPage() {
+  let list = defaultDealerships;
+  try {
+    const live = await client.fetch<Array<{ name: string; category?: string; logo?: string }>>(`
+      *[_type == "dealer" && active == true && defined(logo.asset)] | order(order asc){
+        name,
+        category,
+        "logo": logo.asset->url
+      }
+    `);
+    if (live && live.length > 0) {
+      list = live.map(d => ({
+        name: d.name,
+        category: d.category || "Partners",
+        logo: d.logo || ""
+      })).filter(d => Boolean(d.logo));
+    }
+  } catch {}
 
-export default function DealershipsPage() {
+  const groupedByCategory = list.reduce<Record<string, typeof list>>((acc, d) => {
+    if (!acc[d.category]) acc[d.category] = [];
+    acc[d.category].push(d);
+    return acc;
+  }, {});
+
   return (
     <main>
       <PageHero
