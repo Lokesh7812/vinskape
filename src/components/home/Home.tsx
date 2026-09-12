@@ -165,26 +165,43 @@ export function Home({ data }: { data: HomeData }) {
         <p className="eyebrow dark">OUR TRUSTED PARTNERS & DEALERSHIPS</p>
         <div>
           <h2>Good work is never<br />done <em>alone.</em></h2>
-          <p>We collaborate with India’s leading premium makers, fittings and hardware suppliers.</p>
+          <p>We collaborate with India's leading premium makers, fittings and hardware suppliers.</p>
         </div>
-        <div className="logos" style={{ display: "flex", flexWrap: "wrap", gap: "12px", alignItems: "center" }}>
-          {["Greenlam", "Merino", "Century Laminates", "Stylam", "Hettich", "Ebco", "Faber", "Bosch", "Samsung", "Philips", "Venus", "AO Smith"].map((x) => (
-            <Link
-              key={x}
-              href="/dealerships"
-              style={{
-                display: "inline-block",
-                padding: "8px 18px",
-                border: "1px solid #d4cdc3",
-                borderRadius: "30px",
-                color: "#4a453e",
-                textDecoration: "none",
-                fontSize: "13px",
-                letterSpacing: "0.04em",
-                transition: "all 0.25s ease",
-              }}
-            >
-              {x}
+        <div className="brand-logos-grid">
+          {[
+            { file: "01_Greenlam.png", name: "Greenlam" },
+            { file: "02_Merino.png", name: "Merino" },
+            { file: "03_Century_Laminates.png", name: "Century Laminates" },
+            { file: "04_Stylam.png", name: "Stylam" },
+            { file: "05_Catch.png", name: "Catch" },
+            { file: "06_AICA.png", name: "AICA" },
+            { file: "07_Hettich.png", name: "Hettich" },
+            { file: "08_Ebco.png", name: "Ebco" },
+            { file: "09_Slate.png", name: "Slate" },
+            { file: "10_Olive.png", name: "Olive" },
+            { file: "11_Hablo.png", name: "Hablo" },
+            { file: "12_Faber.png", name: "Faber" },
+            { file: "13_Carysil.png", name: "Carysil" },
+            { file: "14_Bosch.png", name: "Bosch" },
+            { file: "15_LG.png", name: "LG" },
+            { file: "16_Samsung.png", name: "Samsung" },
+            { file: "17_Crompton_Greaves.png", name: "Crompton Greaves" },
+            { file: "18_Philips.png", name: "Philips" },
+            { file: "19_Venus.png", name: "Venus" },
+            { file: "20_VU.png", name: "VU" },
+            { file: "21_AO_Smith.png", name: "AO Smith" },
+            { file: "22_Wafefit.png", name: "Wafefit" },
+            { file: "23_Peps.png", name: "Peps" },
+            { file: "24_Restolex.png", name: "Restolex" },
+          ].map((brand) => (
+            <Link key={brand.name} href="/dealerships" className="brand-logo-item">
+              <Image
+                src={`/24_separate_brand_logos/${brand.file}`}
+                alt={brand.name}
+                width={140}
+                height={80}
+                style={{ objectFit: "contain" }}
+              />
             </Link>
           ))}
         </div>

@@ -1,4 +1,5 @@
 import { PageHero } from "@/components/layout/PageHero";
+import Image from "next/image";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -8,33 +9,33 @@ export const metadata: Metadata = {
 
 const dealerships = [
   // Laminates & Surfaces
-  { name: "Greenlam", category: "Laminates & Surfaces", icon: "🟩" },
-  { name: "Merino", category: "Laminates & Surfaces", icon: "🪵" },
-  { name: "Century Laminates", category: "Laminates & Surfaces", icon: "📐" },
-  { name: "Stylam", category: "Laminates & Surfaces", icon: "✨" },
-  { name: "Catch", category: "Laminates & Surfaces", icon: "🎯" },
-  { name: "AICA", category: "Laminates & Surfaces", icon: "💎" },
+  { name: "Greenlam", category: "Laminates & Surfaces", logo: "/24_separate_brand_logos/01_Greenlam.png" },
+  { name: "Merino", category: "Laminates & Surfaces", logo: "/24_separate_brand_logos/02_Merino.png" },
+  { name: "Century Laminates", category: "Laminates & Surfaces", logo: "/24_separate_brand_logos/03_Century_Laminates.png" },
+  { name: "Stylam", category: "Laminates & Surfaces", logo: "/24_separate_brand_logos/04_Stylam.png" },
+  { name: "Catch", category: "Laminates & Surfaces", logo: "/24_separate_brand_logos/05_Catch.png" },
+  { name: "AICA", category: "Laminates & Surfaces", logo: "/24_separate_brand_logos/06_AICA.png" },
   // Hardware & Fittings
-  { name: "Hettich", category: "Hardware & Fittings", icon: "⚙️" },
-  { name: "Ebco", category: "Hardware & Fittings", icon: "🔧" },
-  { name: "Slate", category: "Hardware & Fittings", icon: "🪨" },
-  { name: "Olive", category: "Hardware & Fittings", icon: "🫒" },
-  { name: "Hablo", category: "Hardware & Fittings", icon: "🔩" },
+  { name: "Hettich", category: "Hardware & Fittings", logo: "/24_separate_brand_logos/07_Hettich.png" },
+  { name: "Ebco", category: "Hardware & Fittings", logo: "/24_separate_brand_logos/08_Ebco.png" },
+  { name: "Slate", category: "Hardware & Fittings", logo: "/24_separate_brand_logos/09_Slate.png" },
+  { name: "Olive", category: "Hardware & Fittings", logo: "/24_separate_brand_logos/10_Olive.png" },
+  { name: "Hablo", category: "Hardware & Fittings", logo: "/24_separate_brand_logos/11_Hablo.png" },
   // Kitchen & Appliances
-  { name: "Faber", category: "Kitchen & Appliances", icon: "🌀" },
-  { name: "Carysil", category: "Kitchen & Appliances", icon: "🚰" },
-  { name: "Bosch", category: "Kitchen & Appliances", icon: "🔵" },
-  { name: "LG", category: "Kitchen & Appliances", icon: "📺" },
-  { name: "Samsung", category: "Kitchen & Appliances", icon: "📱" },
-  { name: "Crompton Greaves", category: "Kitchen & Appliances", icon: "💡" },
-  { name: "Philips", category: "Kitchen & Appliances", icon: "🌟" },
-  { name: "Venus", category: "Kitchen & Appliances", icon: "♨️" },
-  { name: "Vu", category: "Kitchen & Appliances", icon: "🖥️" },
-  { name: "AO Smith", category: "Kitchen & Appliances", icon: "🔥" },
+  { name: "Faber", category: "Kitchen & Appliances", logo: "/24_separate_brand_logos/12_Faber.png" },
+  { name: "Carysil", category: "Kitchen & Appliances", logo: "/24_separate_brand_logos/13_Carysil.png" },
+  { name: "Bosch", category: "Kitchen & Appliances", logo: "/24_separate_brand_logos/14_Bosch.png" },
+  { name: "LG", category: "Kitchen & Appliances", logo: "/24_separate_brand_logos/15_LG.png" },
+  { name: "Samsung", category: "Kitchen & Appliances", logo: "/24_separate_brand_logos/16_Samsung.png" },
+  { name: "Crompton Greaves", category: "Kitchen & Appliances", logo: "/24_separate_brand_logos/17_Crompton_Greaves.png" },
+  { name: "Philips", category: "Kitchen & Appliances", logo: "/24_separate_brand_logos/18_Philips.png" },
+  { name: "Venus", category: "Kitchen & Appliances", logo: "/24_separate_brand_logos/19_Venus.png" },
+  { name: "Vu", category: "Kitchen & Appliances", logo: "/24_separate_brand_logos/20_VU.png" },
+  { name: "AO Smith", category: "Kitchen & Appliances", logo: "/24_separate_brand_logos/21_AO_Smith.png" },
   // Comfort & Furnishing
-  { name: "Wafefit", category: "Comfort & Furnishing", icon: "🛏️" },
-  { name: "Peps", category: "Comfort & Furnishing", icon: "😴" },
-  { name: "Restolex", category: "Comfort & Furnishing", icon: "🛋️" },
+  { name: "Wafefit", category: "Comfort & Furnishing", logo: "/24_separate_brand_logos/22_Wafefit.png" },
+  { name: "Peps", category: "Comfort & Furnishing", logo: "/24_separate_brand_logos/23_Peps.png" },
+  { name: "Restolex", category: "Comfort & Furnishing", logo: "/24_separate_brand_logos/24_Restolex.png" },
 ];
 
 const groupedByCategory = dealerships.reduce<Record<string, typeof dealerships>>((acc, d) => {
@@ -63,7 +64,15 @@ export default function DealershipsPage() {
             <div className="dlr-grid">
               {brands.map((brand) => (
                 <article className="dlr-card" key={brand.name}>
-                  <div className="dlr-card-icon">{brand.icon}</div>
+                  <div className="dlr-card-logo">
+                    <Image
+                      src={brand.logo}
+                      alt={brand.name}
+                      width={120}
+                      height={70}
+                      style={{ objectFit: "contain", width: "100%", height: "auto", maxHeight: "70px" }}
+                    />
+                  </div>
                   <h3>{brand.name}</h3>
                   <span className="dlr-card-cat">{brand.category}</span>
                 </article>
@@ -99,3 +108,4 @@ export default function DealershipsPage() {
     </main>
   );
 }
+
