@@ -706,7 +706,7 @@ footer{background:#25241f;color:#ece6dc;padding:64px 0 23px}.footer-top{display:
    ══════════════════════════════════════════ */
 @media(max-width:900px){
   .nav nav{display:none}.menu-toggle{display:flex;flex-direction:column;gap:6px}.menu-toggle span{width:25px;height:1px;background:white}
-  .mobile-menu{display:block;position:fixed;inset:0 0 0 20%;background:#292823;padding:100px 35px;color:#f5f2eb;transform:translateX(100%);transition:.45s;z-index:25;overflow-y:auto}
+  .mobile-menu{display:block;position:fixed;inset:0 0 0 15%;background:#24231f;padding:24px 24px 50px;color:#f5f2eb;transform:translateX(100%);transition:.4s cubic-bezier(0.16, 1, 0.3, 1);z-index:25;overflow-y:auto;box-shadow:-10px 0 35px rgba(0,0,0,0.55)}
   .mobile-menu.open{transform:none}
   .mobile-menu>p{font-size:10px;letter-spacing:.2em;color:#b29565}
   .mobile-menu div{border-bottom:1px solid #ffffff18;padding:13px 0}

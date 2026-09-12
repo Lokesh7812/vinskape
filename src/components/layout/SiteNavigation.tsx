@@ -163,8 +163,60 @@ export function SiteNavigation() {
         <span />
       </button>
 
+      {/* Mobile backdrop overlay */}
+      {open && (
+        <div
+          onClick={() => setOpen(false)}
+          aria-hidden="true"
+          style={{
+            position: "fixed",
+            inset: 0,
+            background: "rgba(0, 0, 0, 0.65)",
+            backdropFilter: "blur(3px)",
+            WebkitBackdropFilter: "blur(3px)",
+            zIndex: 24,
+          }}
+        />
+      )}
+
       <aside className={`mobile-menu ${open ? "open" : ""}`}>
-        <p>MENU</p>
+        {/* Mobile Header with Close X Button */}
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            marginBottom: "20px",
+            paddingBottom: "14px",
+            borderBottom: "1px solid rgba(255, 255, 255, 0.1)",
+          }}
+        >
+          <span style={{ fontSize: "11px", letterSpacing: "0.2em", color: "#b29565", fontWeight: 700 }}>
+            NAVIGATION
+          </span>
+          <button
+            type="button"
+            onClick={() => setOpen(false)}
+            aria-label="Close navigation menu"
+            style={{
+              background: "rgba(255, 255, 255, 0.08)",
+              border: "1px solid rgba(255, 255, 255, 0.18)",
+              borderRadius: "50%",
+              width: "36px",
+              height: "36px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              color: "#f5f3ee",
+              fontSize: "18px",
+              cursor: "pointer",
+              lineHeight: 1,
+            }}
+          >
+            ✕
+          </button>
+        </div>
+
         {navItems.map((item) => (
           <div key={item.label} style={{ marginBottom: "12px" }}>
             <Link
@@ -172,7 +224,7 @@ export function SiteNavigation() {
               onClick={() => setOpen(false)}
               style={{
                 display: "block",
-                fontSize: "16px",
+                fontSize: "17px",
                 fontWeight: 600,
                 color: "#f5f3ee",
                 textDecoration: "none",
@@ -187,19 +239,31 @@ export function SiteNavigation() {
                 href={child.href}
                 onClick={() => setOpen(false)}
                 style={{
-                  display: "block",
-                  padding: "4px 0 4px 14px",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "8px",
+                  padding: "5px 0 5px 12px",
                   fontSize: "13px",
                   color: "#d0c8bb",
                   textDecoration: "none",
                 }}
               >
-                — {child.label}
+                <span
+                  style={{
+                    color: "#b29565",
+                    fontSize: "14px",
+                    fontWeight: 600,
+                    lineHeight: 1,
+                  }}
+                >
+                  ›
+                </span>
+                <span>{child.label}</span>
               </Link>
             ))}
           </div>
         ))}
-        <small style={{ marginTop: "20px", display: "block", color: "#8a8479" }}>
+        <small style={{ marginTop: "24px", display: "block", color: "#8a8479", fontSize: "11px", letterSpacing: "0.05em" }}>
           Crafting Spaces. Defining Lifestyles.
         </small>
       </aside>
