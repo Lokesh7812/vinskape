@@ -1,9 +1,6 @@
 import type { Metadata } from "next";
 import { DM_Sans, Cormorant_Garamond } from "next/font/google";
-import { SiteNavigation } from "@/components/layout/SiteNavigation";
-import { Footer } from "@/components/layout/Footer";
-import { WhatsApp } from "@/components/layout/WhatsApp";
-import { PageTransition } from "@/components/layout/PageTransition";
+import { SiteChrome } from "@/components/layout/SiteChrome";
 import "./globals.css";
 
 const sans = DM_Sans({ subsets: ["latin"], variable: "--font-sans" });
@@ -18,10 +15,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="en">
       <body className={`${sans.variable} ${serif.variable}`}>
-        <SiteNavigation />
-        <PageTransition>{children}</PageTransition>
-        <Footer />
-        <WhatsApp number="918111000245" message="Hi Vinskape team, I need a quotation for interior design." />
+        <SiteChrome>{children}</SiteChrome>
       </body>
     </html>
   );
