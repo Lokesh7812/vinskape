@@ -27,9 +27,9 @@ export function BrandPreloader() {
     // Prevent body scroll during intro
     document.body.style.overflow = "hidden";
 
-    // Progress counter ticker
+    // Progress counter ticker: snappy 750ms total
     const startTime = Date.now();
-    const duration = 1600; // 1.6 seconds for the counter
+    const duration = 750; // 0.75 seconds: snappy, smooth and premium
 
     const timer = setInterval(() => {
       const elapsed = Date.now() - startTime;
@@ -38,25 +38,24 @@ export function BrandPreloader() {
 
       if (pct >= 100) {
         clearInterval(timer);
-        // Start exit animation after 250ms
+        // Brief 120ms pause on 100%, then trigger curtain lift
         setTimeout(() => {
           setExiting(true);
-          // Restore body scrolling
           document.body.style.overflow = "";
-          // Mark as seen in session and add class
-          try {
-            window.sessionStorage.setItem("vinskape_preloader_seen", "true");
-            document.documentElement.classList.add("vk-preloader-skip");
-          } catch {
-            // ignore session storage quota errors
-          }
-          // Remove from DOM after transition completes
+
+          // Mark in sessionStorage and set skip class ONLY after curtain lift finishes
           setTimeout(() => {
+            try {
+              window.sessionStorage.setItem("vinskape_preloader_seen", "true");
+              document.documentElement.classList.add("vk-preloader-skip");
+            } catch {
+              // ignore
+            }
             setVisible(false);
-          }, 850);
-        }, 300);
+          }, 820);
+        }, 120);
       }
-    }, 25);
+    }, 16);
 
     return () => {
       clearInterval(timer);
@@ -67,15 +66,15 @@ export function BrandPreloader() {
   const handleSkip = () => {
     setExiting(true);
     document.body.style.overflow = "";
-    try {
-      window.sessionStorage.setItem("vinskape_preloader_seen", "true");
-      document.documentElement.classList.add("vk-preloader-skip");
-    } catch {
-      // ignore
-    }
     setTimeout(() => {
+      try {
+        window.sessionStorage.setItem("vinskape_preloader_seen", "true");
+        document.documentElement.classList.add("vk-preloader-skip");
+      } catch {
+        // ignore
+      }
       setVisible(false);
-    }, 600);
+    }, 500);
   };
 
   if (!visible) return null;
