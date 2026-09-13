@@ -263,9 +263,7 @@ export function SiteNavigation() {
             ))}
           </div>
         ))}
-        <small style={{ marginTop: "24px", display: "block", color: "#8a8479", fontSize: "11px", letterSpacing: "0.05em" }}>
-          Crafting Spaces. Defining Lifestyles.
-        </small>
+        {/* Tagline removed per design */}
       </aside>
     </header>
   );

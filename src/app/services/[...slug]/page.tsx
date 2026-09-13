@@ -539,7 +539,7 @@ export default function ServiceCatchAllPage() {
       />
 
       {/* Breadcrumb & Section Navigation */}
-      <nav className="shell" style={{ padding: "40px 42px 10px" }}>
+      <nav className="shell" style={{ paddingTop: "40px", paddingBottom: "10px" }}>
         <div style={{ display: "flex", gap: "10px", flexWrap: "wrap", alignItems: "center", borderBottom: "1px solid #ddd6cb", paddingBottom: "20px" }}>
           <Link href="/services" style={{ fontSize: "13px", color: "#666", textDecoration: "none" }}>
             Services
@@ -560,8 +560,8 @@ export default function ServiceCatchAllPage() {
       </nav>
 
       {/* Overview & Key Highlights */}
-      <section className="shell" style={{ padding: "40px 42px 60px" }}>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: "60px", alignItems: "start" }}>
+      <section className="shell" style={{ paddingTop: "40px", paddingBottom: "60px" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "40px", alignItems: "start" }}>
           <div>
             <p className="eyebrow dark">OVERVIEW</p>
             <h2 style={{ fontFamily: "var(--font-serif)", fontSize: "36px", margin: "0 0 16px", color: "#1e1d1a" }}>
@@ -590,7 +590,7 @@ export default function ServiceCatchAllPage() {
           </div>
 
           {/* Deliverables Cards */}
-          <div style={{ background: "#ffffff", padding: "32px", borderRadius: "4px", border: "1px solid #e2ddd4", boxShadow: "0 4px 20px rgba(0,0,0,0.03)" }}>
+          <div style={{ background: "#ffffff", padding: "clamp(20px, 4vw, 32px)", borderRadius: "4px", border: "1px solid #e2ddd4", boxShadow: "0 4px 20px rgba(0,0,0,0.03)" }}>
             <h3 style={{ fontFamily: "var(--font-serif)", fontSize: "26px", margin: "0 0 20px", color: "#1e1d1a" }}>
               Key Offerings
             </h3>
@@ -645,7 +645,7 @@ export default function ServiceCatchAllPage() {
 
       {/* Related Subpages */}
       {data.relatedLinks.length > 0 && (
-        <section className="shell" style={{ padding: "60px 42px 100px" }}>
+        <section className="shell" style={{ paddingTop: "60px", paddingBottom: "100px" }}>
           <p className="eyebrow dark">EXPLORE RELATED SERVICES</p>
           <h3 style={{ fontFamily: "var(--font-serif)", fontSize: "28px", margin: "0 0 24px", color: "#1e1d1a" }}>
             More in {data.category}
