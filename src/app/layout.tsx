@@ -9,6 +9,10 @@ const serif = Cormorant_Garamond({ subsets: ["latin"], variable: "--font-serif",
 export const metadata: Metadata = {
   title: "VINSKAPE | Interior Design & Architecture",
   description: "Thoughtful, elegant and functional interiors for homes, commercial spaces and modern workplaces.",
+  icons: {
+    icon: "/VK Logo.png",
+    apple: "/VK Logo.png",
+  },
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

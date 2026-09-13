@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 
@@ -103,8 +104,15 @@ export function SiteNavigation() {
 
   return (
     <header className={`nav ${scrolled || !isHome ? "scrolled" : ""}`}>
-      <Link href="/" className="wordmark">
-        VINSKAPE
+      <Link href="/" className="wordmark" aria-label="VINSKAPE">
+        <Image
+          src="/Logo Vinskape.png"
+          alt="VINSKAPE"
+          width={155}
+          height={34}
+          priority
+          className="site-logo"
+        />
       </Link>
       <nav>
         {navItems.map((item) => (
@@ -191,9 +199,15 @@ export function SiteNavigation() {
             borderBottom: "1px solid rgba(255, 255, 255, 0.1)",
           }}
         >
-          <span style={{ fontSize: "11px", letterSpacing: "0.2em", color: "#b29565", fontWeight: 700 }}>
-            NAVIGATION
-          </span>
+          <Link href="/" onClick={() => setOpen(false)} aria-label="VINSKAPE" style={{ display: "flex", alignItems: "center" }}>
+            <Image
+              src="/Logo Vinskape.png"
+              alt="VINSKAPE"
+              width={124}
+              height={27}
+              style={{ height: "26px", width: "auto", objectFit: "contain", display: "block" }}
+            />
+          </Link>
           <button
             type="button"
             onClick={() => setOpen(false)}
@@ -263,7 +277,27 @@ export function SiteNavigation() {
             ))}
           </div>
         ))}
-        {/* Tagline removed per design */}
+        <div
+          style={{
+            marginTop: "24px",
+            paddingTop: "18px",
+            borderTop: "1px solid rgba(255, 255, 255, 0.1)",
+            display: "flex",
+            alignItems: "center",
+            gap: "12px",
+          }}
+        >
+          <Image
+            src="/VK Logo.png"
+            alt="VK"
+            width={40}
+            height={25}
+            style={{ height: "24px", width: "auto", objectFit: "contain", opacity: 0.85 }}
+          />
+          <span style={{ fontSize: "11px", letterSpacing: "0.14em", color: "#b8b2a7", textTransform: "uppercase" }}>
+            Crafting Spaces. Defining Lifestyles.
+          </span>
+        </div>
       </aside>
     </header>
   );

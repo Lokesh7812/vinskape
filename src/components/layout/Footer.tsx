@@ -1,10 +1,20 @@
+import Image from "next/image";
 import Link from "next/link";
 
 export function Footer() {
   return (
     <footer>
       <div className="shell footer-top">
-        <div>
+        <div className="footer-brand">
+          <Link href="/" aria-label="VINSKAPE Home" className="footer-logo-link">
+            <Image
+              src="/VK Logo.png"
+              alt="VINSKAPE VK"
+              width={72}
+              height={46}
+              className="footer-vk-logo"
+            />
+          </Link>
           <h2>VINSKAPE</h2>
           <p>Crafting Spaces. Defining Lifestyles.</p>
         </div>
