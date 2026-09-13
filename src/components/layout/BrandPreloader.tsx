@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 
 export function BrandPreloader() {
-  const [visible, setVisible] = useState(false);
+  const [visible, setVisible] = useState(true);
   const [exiting, setExiting] = useState(false);
   const [progress, setProgress] = useState(0);
 
@@ -13,13 +13,16 @@ export function BrandPreloader() {
     const forceReplay = typeof window !== "undefined" && window.location.search.includes("replay=1");
     const hasSeen = typeof window !== "undefined" && window.sessionStorage.getItem("vinskape_preloader_seen");
     
-    // If already seen and not forcing replay, cleanly skip with zero flash
+    // If already seen and not forcing replay, cleanly unmount
     if (hasSeen && !forceReplay) {
+      setVisible(false);
       return;
     }
 
-    // First visit: show complete animation
-    setVisible(true);
+    // If forcing replay, make sure skip class is removed
+    if (forceReplay) {
+      document.documentElement.classList.remove("vk-preloader-skip");
+    }
 
     // Prevent body scroll during intro
     document.body.style.overflow = "hidden";
@@ -40,16 +43,17 @@ export function BrandPreloader() {
           setExiting(true);
           // Restore body scrolling
           document.body.style.overflow = "";
-          // Mark as seen in session
+          // Mark as seen in session and add class
           try {
             window.sessionStorage.setItem("vinskape_preloader_seen", "true");
+            document.documentElement.classList.add("vk-preloader-skip");
           } catch {
             // ignore session storage quota errors
           }
           // Remove from DOM after transition completes
           setTimeout(() => {
             setVisible(false);
-          }, 800);
+          }, 850);
         }, 300);
       }
     }, 25);
@@ -65,6 +69,7 @@ export function BrandPreloader() {
     document.body.style.overflow = "";
     try {
       window.sessionStorage.setItem("vinskape_preloader_seen", "true");
+      document.documentElement.classList.add("vk-preloader-skip");
     } catch {
       // ignore
     }

@@ -922,6 +922,10 @@ html {
 /* ══════════════════════════════════════════
    BRAND PRELOADER (ARCHITECTURAL INTRO)
    ══════════════════════════════════════════ */
+html.vk-preloader-skip .vk-preloader {
+  display: none !important;
+}
+
 .vk-preloader {
   position: fixed;
   inset: 0;
