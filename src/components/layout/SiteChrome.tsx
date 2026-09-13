@@ -5,6 +5,7 @@ import { SiteNavigation } from "./SiteNavigation";
 import { Footer } from "./Footer";
 import { WhatsApp } from "./WhatsApp";
 import { PageTransition } from "./PageTransition";
+import { BrandPreloader } from "./BrandPreloader";
 
 export function SiteChrome({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -16,6 +17,7 @@ export function SiteChrome({ children }: { children: React.ReactNode }) {
 
   return (
     <>
+      <BrandPreloader />
       <SiteNavigation />
       <PageTransition>{children}</PageTransition>
       <Footer />
