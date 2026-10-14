@@ -27,7 +27,7 @@ export function Home({ data }: { data: HomeData }) {
             {intro.cta.text} <Arrow />
           </Link>
           <div className="metrics">
-            {intro.statistics.map((stat) => {
+            {intro.statistics.map((stat: { value: string; label: string }) => {
               const match = stat.value.match(/^(\d+)(.*)$/);
               return (
                 <div key={stat.label}>

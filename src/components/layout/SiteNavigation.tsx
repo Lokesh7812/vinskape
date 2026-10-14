@@ -51,7 +51,6 @@ const navItems: NavItem[] = [
         children: [
           { label: "Corporate Office Interiors", href: "/services/enterprise/corporate-offices" },
           { label: "Collaborative Workspaces", href: "/services/enterprise/collaborative-workspaces" },
-          { label: "Biophilic Enterprise Design", href: "/services/enterprise/biophilic-design" },
         ],
       },
     ],
@@ -131,8 +130,8 @@ export function SiteNavigation() {
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "space-between",
-                        padding: "8px 10px",
-                        fontSize: "12px",
+                        padding: "8px 12px",
+                        fontSize: "13.5px",
                         color: "#f5f3ee",
                         textDecoration: "none",
                         fontWeight: 500,
@@ -149,8 +148,8 @@ export function SiteNavigation() {
                         className="sub"
                         style={{
                           display: "block",
-                          padding: "4px 10px 4px 22px",
-                          fontSize: "11px",
+                          padding: "5px 12px 5px 24px",
+                          fontSize: "12.5px",
                           color: "#c4bcaf",
                           textDecoration: "none",
                         }}

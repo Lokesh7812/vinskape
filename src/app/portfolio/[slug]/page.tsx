@@ -16,12 +16,12 @@ const allCategoriesList = [
 ];
 
 interface PageProps {
-  params: Promise<{ slug: string }> | { slug: string };
+  params: Promise<{ slug: string }>;
 }
 
 export default async function PortfolioItemPage({ params }: PageProps) {
-  const resolvedParams = await Promise.resolve(params);
-  const slug = (resolvedParams.slug || "").toLowerCase();
+  const { slug: rawSlug } = await params;
+  const slug = (rawSlug || "").toLowerCase();
   const data = await getPortfolioCategoryBySlug(slug);
 
   if (!data) {

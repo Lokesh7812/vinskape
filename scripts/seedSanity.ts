@@ -289,7 +289,7 @@ async function seed() {
     let heroImageAsset = galleryAssets[0];
     if (room?.heroImage && room.heroImage !== category.images[0]) {
       const heroUploaded = await safeSanityImage(room.heroImage, `${category.name} Hero`, `pf-${category.slug}-hero`);
-      if (heroUploaded) heroImageAsset = heroUploaded;
+      if (heroUploaded) heroImageAsset = { ...heroUploaded, _key: `hero_${category.slug}` };
     }
 
     const featuresWithKeys = (room?.features || []).map((feat, fIdx) => ({
