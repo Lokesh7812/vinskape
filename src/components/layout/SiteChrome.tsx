@@ -4,6 +4,7 @@ import { usePathname } from "next/navigation";
 import { SiteNavigation } from "./SiteNavigation";
 import { Footer } from "./Footer";
 import { WhatsApp } from "./WhatsApp";
+import { Instagram } from "./Instagram";
 import { PageTransition } from "./PageTransition";
 
 export function SiteChrome({ children }: { children: React.ReactNode }) {
@@ -19,7 +20,10 @@ export function SiteChrome({ children }: { children: React.ReactNode }) {
       <SiteNavigation />
       <PageTransition>{children}</PageTransition>
       <Footer />
-      <WhatsApp number="918111000245" message="Hi Vinskape team, I need a quotation for interior design." />
+      <div className="social-fabs">
+        <Instagram url="https://www.instagram.com/vinskape/" />
+        <WhatsApp number="918111000245" message="Hi Vinskape team, I need a quotation for interior design." />
+      </div>
     </>
   );
 }

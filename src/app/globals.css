@@ -481,14 +481,20 @@
 /* ── Footer ── */
 footer{background:#25241f;color:#ece6dc;padding:64px 0 23px}.footer-top{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:20px}.footer-brand{display:flex;flex-direction:column;align-items:flex-start}.footer-logo-link{display:inline-block;margin-bottom:14px;transition:transform .25s ease,opacity .25s ease}.footer-logo-link:hover{transform:scale(1.05);opacity:.92}.footer-vk-logo{height:46px;width:auto;object-fit:contain;display:block}.footer-top h2{margin:0;font-size:20px;letter-spacing:.18em}.footer-top p{font-family:var(--font-serif);font-size:20px;color:#cfc5b5}.footer-links{display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:11px;letter-spacing:.08em}.footer-links a{transition:.2s}.footer-links a:hover{color:var(--gold)}.footer-contact{font-family:var(--font-sans)!important;font-size:12px!important;line-height:1.8}.footer-bottom{border-top:1px solid #ffffff25;margin-top:48px;padding-top:20px;display:flex;justify-content:space-between;font-size:10px;color:#b8b0a5}
 
-/* ── WhatsApp ── */
-.whatsapp{position:fixed;z-index:15;right:27px;bottom:25px;width:52px;height:52px;border-radius:50%;background:#b39363;color:white;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 25px #0004}.whatsapp span{font-size:28px;transform:rotate(-40deg)}.whatsapp i{position:absolute;right:62px;width:90px;font-style:normal;opacity:0;transition:.2s;font-size:10px}.whatsapp:hover i{opacity:1}
-@keyframes rise{from{opacity:0;transform:translateY(-28%)}to{opacity:1;transform:translateY(-34%)}}
+/* ── Social FABs ── */
+.social-fabs{position:fixed;z-index:15;right:27px;bottom:25px;display:flex;flex-direction:column;gap:12px;align-items:center}
+.social-fabs a{width:52px;height:52px;border-radius:50%;color:white;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 25px #0004;transition:transform .2s,box-shadow .2s;position:relative;text-decoration:none}
+.social-fabs a:hover{transform:scale(1.08);box-shadow:0 12px 30px #0005}
+.social-fabs a i{position:absolute;right:62px;width:90px;font-style:normal;opacity:0;transition:.2s;font-size:10px;white-space:nowrap;text-align:right}
+.social-fabs a:hover i{opacity:1}
+.whatsapp{background:#25D366}.whatsapp .whatsapp-icon{width:30px;height:30px}
+.instagram-fab{background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888)}.instagram-fab .instagram-icon{width:26px;height:26px}
+
 
 /* ══════════════════════════════════════════
    SERVICES PAGE
    ══════════════════════════════════════════ */
-.svc-section{padding:100px 0}.svc-section--dark{background:#2d2c27;color:#f0ece5;padding:100px 0}
+.svc-section{padding-top:100px;padding-bottom:100px;overflow-x:hidden}.svc-section--dark{background:#2d2c27;color:#f0ece5;padding-top:100px;padding-bottom:100px}
 .svc-section-header{display:flex;gap:40px;align-items:flex-start;margin-bottom:60px}
 .svc-number{font-family:var(--font-serif);font-size:80px;font-weight:400;color:var(--gold);line-height:.85;min-width:90px}
 .svc-section-header h2{font-family:var(--font-serif);font-size:clamp(36px,4vw,56px);font-weight:400;line-height:1;margin:0}
@@ -734,7 +740,7 @@ footer{background:#25241f;color:#ece6dc;padding:64px 0 23px}.footer-top{display:
   .home-contact-layout{grid-template-columns:1fr;gap:45px}
   .footer-top{grid-template-columns:1fr 1fr}.footer-top>div:first-child{grid-column:span 2}
   /* Inner pages */
-  .svc-section-header{flex-direction:column;gap:20px}.svc-number{font-size:50px}
+  .svc-section-header{flex-direction:column;gap:20px}.svc-number{font-size:50px;min-width:auto}
   .svc-grid--enterprise{grid-template-columns:1fr}
   .pf-grid{grid-template-columns:1fr 1fr}.pf-item--large{grid-column:auto;height:320px}
   .gal-grid,.gal-grid--completed{grid-template-columns:1fr}
@@ -788,12 +794,12 @@ footer{background:#25241f;color:#ece6dc;padding:64px 0 23px}.footer-top{display:
   .home-contact-title{font-size:32px}
   .footer-top{grid-template-columns:1fr}.footer-top>div:first-child{grid-column:auto}
   .footer-bottom{display:block;line-height:2}.footer-bottom span{display:block}
-  .whatsapp{right:18px;bottom:18px}
+  .social-fabs{right:18px;bottom:18px}
   /* Inner pages */
   .page-hero{min-height:300px;padding-bottom:40px}.page-hero-content{padding-top:90px}
   .page-hero-content h1{font-size:34px}
   .page-hero-sub{font-size:13px;max-width:100%}
-  .svc-section,.svc-section--dark{padding:50px 0}
+  .svc-section,.svc-section--dark{padding-top:50px;padding-bottom:50px}
   .svc-card{padding:24px 20px}
   .svc-card h3{font-size:18px}
   .pf-tabs{gap:4px}.pf-tab{padding:8px 12px;font-size:10px}
@@ -832,6 +838,15 @@ footer{background:#25241f;color:#ece6dc;padding:64px 0 23px}.footer-top{display:
   /* Gallery */
   .gal-card-body{padding:16px 18px}
   .gal-card-body h3{font-size:20px}
+  .gal-card-img{height:220px}
+  /* Services */
+  .svc-number{font-size:40px;min-width:auto}
+  .svc-section-header{gap:12px}
+  .svc-section-header h2{font-size:28px}
+  .svc-section-desc{font-size:13px}
+  .svc-grid{grid-template-columns:1fr}
+  .svc-cta h2{font-size:28px}
+  .svc-cta{padding:60px 0}
   /* Dealerships */
   .dlr-trust h2{font-size:30px}
   .dlr-group-head h2{font-size:24px}

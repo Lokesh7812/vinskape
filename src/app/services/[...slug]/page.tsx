@@ -527,7 +527,7 @@ export default function ServiceCatchAllPage() {
 
       {/* Overview & Key Highlights */}
       <section className="shell" style={{ paddingTop: "40px", paddingBottom: "60px" }}>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "40px", alignItems: "start" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 280px), 1fr))", gap: "40px", alignItems: "start" }}>
           <div>
             <p className="eyebrow dark">OVERVIEW</p>
             <h2 style={{ fontFamily: "var(--font-serif)", fontSize: "36px", margin: "0 0 16px", color: "#1e1d1a" }}>
@@ -594,7 +594,7 @@ export default function ServiceCatchAllPage() {
             The Vinskape Execution Process
           </h2>
 
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: "24px" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 220px), 1fr))", gap: "24px" }}>
             {data.process.map((step, i) => (
               <div key={step} style={{ borderTop: "1px solid #555", paddingTop: "20px" }}>
                 <span style={{ fontSize: "12px", color: "var(--gold, #b29565)", letterSpacing: "0.1em", fontWeight: 600 }}>

@@ -161,9 +161,9 @@ export default function GallerySubPage() {
         backgroundImage={data.heroImage}
       />
 
-      <section className="shell" style={{ padding: "60px 42px 30px" }}>
+      <section className="shell" style={{ paddingTop: "60px", paddingBottom: "30px" }}>
         {/* Navigation Switcher Tabs */}
-        <div style={{ display: "flex", gap: "14px", borderBottom: "1px solid #ddd6cb", paddingBottom: "20px" }}>
+        <div style={{ display: "flex", gap: "14px", borderBottom: "1px solid #ddd6cb", paddingBottom: "20px", flexWrap: "wrap", alignItems: "center" }}>
           <Link
             href="/gallery"
             className="link-button"
@@ -210,11 +210,11 @@ export default function GallerySubPage() {
       </section>
 
       {/* Projects Grid */}
-      <section className="shell" style={{ padding: "20px 42px 100px" }}>
+      <section className="shell" style={{ paddingTop: "20px", paddingBottom: "100px" }}>
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(auto-fill, minmax(360px, 1fr))",
+            gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 360px), 1fr))",
             gap: "36px",
           }}
         >
