@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { PageHero } from "@/components/layout/PageHero";
 import type { Metadata } from "next";
 import { getServicesData } from "@/sanity/lib/data";
@@ -12,6 +13,11 @@ export const metadata: Metadata = {
 
 export default async function ServicesPage() {
   const data = await getServicesData();
+
+  const getHref = (slug?: string) => {
+    if (!slug) return "/services";
+    return slug.startsWith("/") ? slug : `/services/${slug}`;
+  };
 
   return (
     <main>
@@ -35,8 +41,8 @@ export default async function ServicesPage() {
         </div>
         <div className="svc-grid">
           {data.residential.items.map((item) => (
-            <a
-              href={`/contact?service=${encodeURIComponent(item.name)}`}
+            <Link
+              href={getHref(item.slug)}
               className="svc-card"
               key={item.name}
               style={{ textDecoration: "none", color: "inherit", display: "block" }}
@@ -47,7 +53,7 @@ export default async function ServicesPage() {
               <span className="svc-card-arrow" style={{ display: "inline-flex", alignItems: "center", justifyContent: "center" }}>
                 ↗
               </span>
-            </a>
+            </Link>
           ))}
         </div>
       </section>
@@ -65,8 +71,8 @@ export default async function ServicesPage() {
           </div>
           <div className="svc-grid">
             {data.commercial.items.map((item) => (
-              <a
-                href={`/contact?service=${encodeURIComponent(item.name)}`}
+              <Link
+                href={getHref(item.slug)}
                 className="svc-card svc-card--dark"
                 key={item.name}
                 style={{ textDecoration: "none", color: "inherit", display: "block" }}
@@ -77,7 +83,7 @@ export default async function ServicesPage() {
                 <span className="svc-card-arrow" style={{ display: "inline-flex", alignItems: "center", justifyContent: "center" }}>
                   ↗
                 </span>
-              </a>
+              </Link>
             ))}
           </div>
         </div>
@@ -95,8 +101,8 @@ export default async function ServicesPage() {
         </div>
         <div className="svc-grid svc-grid--enterprise">
           {data.enterprise.items.map((item) => (
-            <a
-              href={`/contact?service=${encodeURIComponent(item.name)}`}
+            <Link
+              href={getHref(item.slug)}
               className="svc-card"
               key={item.name}
               style={{ textDecoration: "none", color: "inherit", display: "block" }}
@@ -107,7 +113,7 @@ export default async function ServicesPage() {
               <span className="svc-card-arrow" style={{ display: "inline-flex", alignItems: "center", justifyContent: "center" }}>
                 ↗
               </span>
-            </a>
+            </Link>
           ))}
         </div>
       </section>

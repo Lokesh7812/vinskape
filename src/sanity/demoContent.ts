@@ -45,7 +45,7 @@ export const demoHomeData: HomeData = {
     ]
   },
   services: [
-    { name: "Residential", slug: "residential", description: "Homes with a quietly luxurious sense of ease.", items: ["2BHK & 3BHK", "Luxury Villas", "Bungalows"], image: { url: "/images/Living Room/Living Room/1.png", alt: "Residential interior" } },
+    { name: "Residential", slug: "residential", description: "Homes with a quietly luxurious sense of ease.", items: ["2BHK & 3BHK", "Luxury Villas"], image: { url: "/images/Living Room/Living Room/1.png", alt: "Residential interior" } },
     { name: "Commercial", slug: "commercial", description: "Spaces that invite customers to stay, notice and return.", items: ["Workspaces", "Retail", "Hospitality", "Healthcare"], image: { url: "/images/Commercial/Commercial/Dental Clinic.png", alt: "Commercial interior" } },
     { name: "Enterprise", slug: "enterprise", description: "Workplaces calibrated for people, purpose and performance.", items: ["Corporate Offices", "Collaborative Workspaces"], image: { url: "/images/Commercial/Commercial/Hotel.png", alt: "Enterprise office interior" } }
   ],

@@ -198,6 +198,7 @@ export interface ServiceItem {
   name: string;
   desc: string;
   icon: string;
+  slug?: string;
 }
 
 export interface ServicesData {
@@ -250,11 +251,10 @@ export const defaultServicesData: ServicesData = {
     headingAccent: "you.",
     description: "Elegant apartments and sophisticated villas, balanced for beauty, comfort and the rhythms of everyday life.",
     items: [
-      { name: "Apartment 2BHK Interior", desc: "Smart, space-efficient designs that transform compact 2BHK apartments into elegant, functional living spaces.", icon: "🏠" },
-      { name: "3BHK Interiors", desc: "Balanced layouts with premium finishes, creating distinct zones for family, work and relaxation.", icon: "🏡" },
-      { name: "4BHK Interiors", desc: "Spacious, luxurious interiors with custom furnishings and refined material palettes throughout.", icon: "🏘️" },
-      { name: "Villa", desc: "Grand-scale villa interiors combining architectural drama with intimate, liveable comfort.", icon: "🏛️" },
-      { name: "Bungalow", desc: "Classic bungalow interiors with modern sensibilities, designed around natural light and open flow.", icon: "🌿" },
+      { name: "2BHK Interior", desc: "Smart, space-efficient designs that transform compact 2BHK apartments into elegant, functional living spaces.", icon: "🏠", slug: "residential/apartment-2bhk" },
+      { name: "3BHK Interiors", desc: "Balanced layouts with premium finishes, creating distinct zones for family, work and relaxation.", icon: "🏡", slug: "residential/3bhk-interiors" },
+      { name: "4BHK Interiors", desc: "Spacious, luxurious interiors with custom furnishings and refined material palettes throughout.", icon: "🏘️", slug: "residential/4bhk-interiors" },
+      { name: "Villa", desc: "Grand-scale villa interiors combining architectural drama with intimate, liveable comfort.", icon: "🏛️", slug: "residential/villa" },
     ],
   },
   commercial: {
@@ -263,11 +263,11 @@ export const defaultServicesData: ServicesData = {
     headingAccent: "experiences.",
     description: "Memorable environments that strengthen your brand and elevate each customer interaction.",
     items: [
-      { name: "Office Workspaces", desc: "Productive, inspiring work environments that reflect your company culture and boost team performance.", icon: "💼" },
-      { name: "Retail Outlets", desc: "Store designs that guide the customer journey, strengthen brand identity and drive conversions.", icon: "🛍️" },
-      { name: "Hospitality", desc: "Hotels, restaurants and cafés designed for memorable guest experiences and operational excellence.", icon: "🍽️" },
-      { name: "Healthcare & Clinics", desc: "Calming, hygienic spaces that prioritize patient comfort and efficient clinical workflows.", icon: "🏥" },
-      { name: "Educational & Institutions", desc: "Dynamic learning environments designed to inspire focus, creativity and collaboration.", icon: "🎓" },
+      { name: "Workspace", desc: "Productive, inspiring work environments that reflect your company culture and boost team performance.", icon: "💼", slug: "commercial/office-workspaces" },
+      { name: "Outlet", desc: "Store designs that guide the customer journey, strengthen brand identity and drive conversions.", icon: "🛍️", slug: "commercial/retail-outlets" },
+      { name: "Hospitality", desc: "Hotels, restaurants and cafés designed for memorable guest experiences and operational excellence.", icon: "🍽️", slug: "commercial/hospitality" },
+      { name: "Healthcare & Clinics", desc: "Calming, hygienic spaces that prioritize patient comfort and efficient clinical workflows.", icon: "🏥", slug: "commercial/healthcare-clinics" },
+      { name: "Educational Institution", desc: "Dynamic learning environments designed to inspire focus, creativity and collaboration.", icon: "🎓", slug: "commercial/educational-institutions" },
     ],
   },
   enterprise: {
@@ -276,8 +276,8 @@ export const defaultServicesData: ServicesData = {
     headingAccent: "performance.",
     description: "Corporate environments designed for people, purpose and long-term value.",
     items: [
-      { name: "Corporate Office Interiors", desc: "Executive-grade office spaces with boardrooms, lounges and workstations that command presence.", icon: "🏢" },
-      { name: "Collaborative Workspaces", desc: "Open-plan co-working environments designed for flexibility, interaction and innovation.", icon: "🤝" },
+      { name: "Corporate Office Interiors", desc: "Executive-grade office spaces with boardrooms, lounges and workstations that command presence.", icon: "🏢", slug: "enterprise/corporate-offices" },
+      { name: "Collaborative Workspaces", desc: "Open-plan co-working environments designed for flexibility, interaction and innovation.", icon: "🤝", slug: "enterprise/collaborative-workspaces" },
     ],
   },
   cta: {
@@ -287,8 +287,74 @@ export const defaultServicesData: ServicesData = {
   },
 };
 
+export function resolveServiceSlug(category: "residential" | "commercial" | "enterprise", name: string): string {
+  const n = name.toLowerCase();
+  if (category === "residential") {
+    if (n.includes("2bhk")) return "residential/apartment-2bhk";
+    if (n.includes("3bhk")) return "residential/3bhk-interiors";
+    if (n.includes("4bhk")) return "residential/4bhk-interiors";
+    if (n.includes("villa")) return "residential/villa";
+    return "residential";
+  }
+  if (category === "commercial") {
+    if (n.includes("work") || n.includes("office")) return "commercial/office-workspaces";
+    if (n.includes("outlet") || n.includes("retail")) return "commercial/retail-outlets";
+    if (n.includes("hospit")) return "commercial/hospitality";
+    if (n.includes("health") || n.includes("clinic")) return "commercial/healthcare-clinics";
+    if (n.includes("educat") || n.includes("institution")) return "commercial/educational-institutions";
+    return "commercial";
+  }
+  if (category === "enterprise") {
+    if (n.includes("corporate") || n.includes("office")) return "enterprise/corporate-offices";
+    if (n.includes("collab") || n.includes("work")) return "enterprise/collaborative-workspaces";
+    return "enterprise";
+  }
+  return "";
+}
+
+function normalizeServiceItems(
+  category: "residential" | "commercial" | "enterprise",
+  rawItems: ServiceItem[]
+): ServiceItem[] {
+  return (rawItems || [])
+    .filter((item) => !item.name.toLowerCase().includes("bungalow"))
+    .map((item) => {
+      let cleanName = item.name;
+      if (category === "residential") {
+        if (cleanName.includes("Apartment 2BHK")) cleanName = "2BHK Interior";
+      } else if (category === "commercial") {
+        if (cleanName.toLowerCase().includes("office workspace")) cleanName = "Workspace";
+        else if (cleanName.toLowerCase().includes("retail outlet")) cleanName = "Outlet";
+        else if (cleanName.toLowerCase().includes("educational")) cleanName = "Educational Institution";
+      }
+      const slug = item.slug || resolveServiceSlug(category, cleanName);
+      return {
+        ...item,
+        name: cleanName,
+        slug,
+      };
+    });
+}
+
 export async function getServicesData(): Promise<ServicesData> {
-  if (!hasSanityConfig) return defaultServicesData;
+  if (!hasSanityConfig) {
+    return {
+      ...defaultServicesData,
+      residential: {
+        ...defaultServicesData.residential,
+        items: normalizeServiceItems("residential", defaultServicesData.residential.items),
+      },
+      commercial: {
+        ...defaultServicesData.commercial,
+        items: normalizeServiceItems("commercial", defaultServicesData.commercial.items),
+      },
+      enterprise: {
+        ...defaultServicesData.enterprise,
+        items: normalizeServiceItems("enterprise", defaultServicesData.enterprise.items),
+      },
+    };
+  }
+
   try {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const res = await client.fetch<any>(servicesQuery);
@@ -306,21 +372,30 @@ export async function getServicesData(): Promise<ServicesData> {
         heading: res.residential?.heading || defaultServicesData.residential.heading,
         headingAccent: res.residential?.headingAccent || defaultServicesData.residential.headingAccent,
         description: res.residential?.description || defaultServicesData.residential.description,
-        items: res.residential?.items?.length ? res.residential.items : defaultServicesData.residential.items,
+        items: normalizeServiceItems(
+          "residential",
+          res.residential?.items?.length ? res.residential.items : defaultServicesData.residential.items
+        ),
       },
       commercial: {
         eyebrow: res.commercial?.eyebrow || defaultServicesData.commercial.eyebrow,
         heading: res.commercial?.heading || defaultServicesData.commercial.heading,
         headingAccent: res.commercial?.headingAccent || defaultServicesData.commercial.headingAccent,
         description: res.commercial?.description || defaultServicesData.commercial.description,
-        items: res.commercial?.items?.length ? res.commercial.items : defaultServicesData.commercial.items,
+        items: normalizeServiceItems(
+          "commercial",
+          res.commercial?.items?.length ? res.commercial.items : defaultServicesData.commercial.items
+        ),
       },
       enterprise: {
         eyebrow: res.enterprise?.eyebrow || defaultServicesData.enterprise.eyebrow,
         heading: res.enterprise?.heading || defaultServicesData.enterprise.heading,
         headingAccent: res.enterprise?.headingAccent || defaultServicesData.enterprise.headingAccent,
         description: res.enterprise?.description || defaultServicesData.enterprise.description,
-        items: res.enterprise?.items?.length ? res.enterprise.items : defaultServicesData.enterprise.items,
+        items: normalizeServiceItems(
+          "enterprise",
+          res.enterprise?.items?.length ? res.enterprise.items : defaultServicesData.enterprise.items
+        ),
       },
       cta: res.cta?.heading ? res.cta : defaultServicesData.cta,
     };

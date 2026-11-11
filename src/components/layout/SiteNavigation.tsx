@@ -27,22 +27,21 @@ const navItems: NavItem[] = [
         label: "Residential",
         href: "/services/residential",
         children: [
-          { label: "Apartment 2BHK Interior", href: "/services/residential/apartment-2bhk" },
+          { label: "2BHK Interior", href: "/services/residential/apartment-2bhk" },
           { label: "3BHK Interiors", href: "/services/residential/3bhk-interiors" },
           { label: "4BHK Interiors", href: "/services/residential/4bhk-interiors" },
           { label: "Villa", href: "/services/residential/villa" },
-          { label: "Bungalow", href: "/services/residential/bungalow" },
         ],
       },
       {
         label: "Commercial",
         href: "/services/commercial",
         children: [
-          { label: "Office Workspaces", href: "/services/commercial/office-workspaces" },
-          { label: "Retail Outlets", href: "/services/commercial/retail-outlets" },
+          { label: "Workspace", href: "/services/commercial/office-workspaces" },
+          { label: "Outlet", href: "/services/commercial/retail-outlets" },
           { label: "Hospitality", href: "/services/commercial/hospitality" },
           { label: "Healthcare & Clinics", href: "/services/commercial/healthcare-clinics" },
-          { label: "Educational & Institutions", href: "/services/commercial/educational-institutions" },
+          { label: "Educational Institution", href: "/services/commercial/educational-institutions" },
         ],
       },
       {
