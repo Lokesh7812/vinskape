@@ -205,7 +205,7 @@ export function HomeContact({ contact }: ContactProps) {
               </div>
               <div className="hc-highlight-item">
                 <span className="hc-highlight-check">✓</span>
-                <span>24+ Authorized Brand Dealerships</span>
+                <span>30+ Authorized Brand Dealerships</span>
               </div>
               <div className="hc-highlight-item">
                 <span className="hc-highlight-check">✓</span>

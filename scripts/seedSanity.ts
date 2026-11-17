@@ -141,7 +141,7 @@ const dealerships = [
   { name: "Vu", category: "Kitchen & Appliances", logo: "/24_separate_brand_logos/20_VU.png" },
   { name: "AO Smith", category: "Kitchen & Appliances", logo: "/24_separate_brand_logos/21_AO_Smith.png" },
   // Comfort & Furnishing
-  { name: "Wafefit", category: "Comfort & Furnishing", logo: "/24_separate_brand_logos/22_Wafefit.png" },
+  { name: "Wakefit", category: "Comfort & Furnishing", logo: "/24_separate_brand_logos/22_Wakefit.png" },
   { name: "Peps", category: "Comfort & Furnishing", logo: "/24_separate_brand_logos/23_Peps.png" },
   { name: "Restolex", category: "Comfort & Furnishing", logo: "/24_separate_brand_logos/24_Restolex.png" },
 ];

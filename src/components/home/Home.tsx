@@ -154,15 +154,24 @@ export function Home({ data }: { data: HomeData }) {
             : [
                 { file: "01_Greenlam.png", name: "Greenlam" },
                 { file: "02_Merino.png", name: "Merino" },
+                { file: "25_Royale_Touche.jpg", name: "Royale Touché" },
                 { file: "03_Century_Laminates.png", name: "Century Laminates" },
+                { file: "30_CenturyPly.jpg", name: "CenturyPly" },
+                { file: "29_Mikasa_Plywood.png", name: "Mikasa Plywood" },
+                { file: "28_Dream_Ply.png", name: "Dream Ply" },
+                { file: "31_SiamPly.png", name: "SiamPly" },
                 { file: "04_Stylam.png", name: "Stylam" },
                 { file: "05_Catch.png", name: "Catch" },
                 { file: "06_AICA.png", name: "AICA" },
                 { file: "07_Hettich.png", name: "Hettich" },
+                { file: "26_Hafele.png", name: "Häfele" },
                 { file: "08_Ebco.png", name: "Ebco" },
+                { file: "27_Sleek.jpg", name: "Sleek" },
                 { file: "09_Slate.png", name: "Slate" },
                 { file: "10_Olive.png", name: "Olive" },
                 { file: "11_Hablo.png", name: "Hablo" },
+                { file: "33_Asian_Paints.jpg", name: "Asian Paints" },
+                { file: "32_Birla_Opus_Paints.png", name: "Birla Opus Paints" },
                 { file: "12_Faber.png", name: "Faber" },
                 { file: "13_Carysil.png", name: "Carysil" },
                 { file: "14_Bosch.png", name: "Bosch" },
@@ -173,7 +182,7 @@ export function Home({ data }: { data: HomeData }) {
                 { file: "19_Venus.png", name: "Venus" },
                 { file: "20_VU.png", name: "VU" },
                 { file: "21_AO_Smith.png", name: "AO Smith" },
-                { file: "22_Wafefit.png", name: "Wafefit" },
+                { file: "22_Wakefit.png", name: "Wakefit" },
                 { file: "23_Peps.png", name: "Peps" },
                 { file: "24_Restolex.png", name: "Restolex" },
               ].map((brand) => (
@@ -190,7 +199,7 @@ export function Home({ data }: { data: HomeData }) {
         </div>
         <div style={{ marginTop: "28px" }}>
           <Link href="/dealerships" className="link-button">
-            View all 24+ authorized dealerships <Arrow />
+            View all 30+ authorized dealerships <Arrow />
           </Link>
         </div>
       </section>
