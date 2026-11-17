@@ -217,32 +217,176 @@ export const schemaTypes = [
     title: "Projects",
     type: "document",
     fields: [
-      defineField({ name: "title", type: "string" }),
-      defineField({ name: "slug", type: "slug", options: { source: "title" } }),
-      defineField({ name: "category", type: "string" }),
-      defineField({ name: "projectType", type: "string" }),
-      defineField({ name: "location", type: "string" }),
-      defineField({ name: "description", type: "text" }),
       defineField({
-        name: "coverImage",
-        type: "image",
-        options: { hotspot: true },
-        fields: [defineField({ name: "alt", type: "string" })],
+        name: "title",
+        title: "Project Title",
+        type: "string",
+        validation: (r) => r.required(),
+        description: "Name of the project (e.g. Modern Villa Interiors)",
       }),
       defineField({
-        name: "gallery",
-        type: "array",
-        of: [defineArrayMember({ type: "image", options: { hotspot: true } })],
+        name: "slug",
+        title: "Slug",
+        type: "slug",
+        options: { source: "title", maxLength: 96 },
+        validation: (r) => r.required(),
+        description: "Unique URL slug generated from the project title",
       }),
       defineField({
         name: "status",
+        title: "Project Status",
         type: "string",
-        options: { list: ["Ongoing", "Completed"] },
+        options: {
+          list: [
+            { title: "Ongoing", value: "ongoing" },
+            { title: "Completed", value: "completed" },
+          ],
+          layout: "radio",
+        },
+        initialValue: "ongoing",
+        validation: (r) => r.required(),
+        description: "Project status: Ongoing (in progress) or Completed (delivered)",
       }),
-      defineField({ name: "completionDate", type: "date" }),
-      defineField({ name: "featured", type: "boolean", initialValue: false }),
+      defineField({
+        name: "category",
+        title: "Category",
+        type: "string",
+        options: { list: ["Residential", "Commercial", "Healthcare"] },
+        validation: (r) => r.required(),
+        description: "Primary space classification",
+      }),
+      defineField({
+        name: "location",
+        title: "Location",
+        type: "string",
+        validation: (r) => r.required(),
+        description: "Project location (e.g. Ponmar, Chennai)",
+      }),
+      defineField({
+        name: "description",
+        title: "Description",
+        type: "text",
+        rows: 3,
+        description: "Short summary of the design scope and key features",
+      }),
+      defineField({
+        name: "coverImage",
+        title: "Cover Image",
+        type: "image",
+        options: { hotspot: true },
+        fields: [
+          defineField({
+            name: "alt",
+            title: "Accessible Alt Text",
+            type: "string",
+          }),
+        ],
+        validation: (r) => r.required(),
+        description: "Primary visual shown on the project card",
+      }),
+      defineField({
+        name: "photos",
+        title: "All Project Photos",
+        type: "array",
+        of: [
+          defineArrayMember({
+            type: "image",
+            options: { hotspot: true },
+            fields: [
+              defineField({
+                name: "alt",
+                title: "Alt Text",
+                type: "string",
+              }),
+            ],
+          }),
+        ],
+        description: "All additional site photos displayed in the gallery modal",
+      }),
+      defineField({
+        name: "progress",
+        title: "Progress (%)",
+        type: "number",
+        hidden: ({ parent }) => parent?.status !== "ongoing",
+        validation: (r) => r.min(0).max(100),
+        description: "Current execution milestone percentage (0 to 100)",
+      }),
+      defineField({
+        name: "latestUpdate",
+        title: "Latest Update Note",
+        type: "string",
+        hidden: ({ parent }) => parent?.status !== "ongoing",
+        description: "Short milestone status note (e.g. False ceiling and lighting, Feb 2026)",
+      }),
+      defineField({
+        name: "beforeImage",
+        title: "Before Image",
+        type: "image",
+        options: { hotspot: true },
+        hidden: ({ parent }) => parent?.status !== "completed",
+        fields: [
+          defineField({
+            name: "alt",
+            title: "Alt Text",
+            type: "string",
+          }),
+        ],
+        description: "Site photo before renovation (upload the same angle as the after photo for slider)",
+      }),
+      defineField({
+        name: "afterImage",
+        title: "After Image",
+        type: "image",
+        options: { hotspot: true },
+        hidden: ({ parent }) => parent?.status !== "completed",
+        fields: [
+          defineField({
+            name: "alt",
+            title: "Alt Text",
+            type: "string",
+          }),
+        ],
+        validation: (r) =>
+          r.custom((val, context) => {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            if ((context.parent as any)?.status === "completed" && !val) {
+              return "A completed project must have an after image";
+            }
+            return true;
+          }),
+        description: "Finished space photo (used as the base layer in before/after slider)",
+      }),
+      defineField({
+        name: "completedYear",
+        title: "Completed Year",
+        type: "number",
+        hidden: ({ parent }) => parent?.status !== "completed",
+        description: "Year of handover and delivery (e.g. 2026)",
+      }),
+      defineField({
+        name: "featured",
+        title: "Featured on Homepage",
+        type: "boolean",
+        initialValue: false,
+      }),
       order(),
     ],
+    preview: {
+      select: {
+        title: "title",
+        status: "status",
+        location: "location",
+        media: "coverImage",
+      },
+      prepare({ title, status, location, media }) {
+        const statusLabel = status === "completed" ? "Completed" : "Ongoing";
+        return {
+          title: title || "Untitled Project",
+          subtitle: `${statusLabel.toUpperCase()} · ${location || "No location"}`,
+          media,
+        };
+      },
+    },
   }),
 
   defineType({

@@ -13,6 +13,14 @@ const nextConfig: NextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
+  async rewrites() {
+    return [
+      {
+        source: "/admin/:path*",
+        destination: "/studio/:path*",
+      },
+    ];
+  },
 };
 
 export default nextConfig;

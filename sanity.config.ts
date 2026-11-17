@@ -19,7 +19,7 @@ export default defineConfig({
   title: "Vinskape Content Studio",
   projectId,
   dataset,
-  basePath: "/admin",
+  basePath: process.env.NEXT_PUBLIC_SANITY_STUDIO_URL || "/studio",
   plugins: [
     structureTool({
       structure: deskStructure,

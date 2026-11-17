@@ -158,24 +158,24 @@ export const deskStructure: StructureResolver = (S) =>
         .title("Gallery")
         .child(
           S.list()
-            .title("Gallery")
+            .title("Gallery Projects")
             .items([
               S.listItem()
                 .title("Ongoing Projects")
                 .child(
                   S.documentList()
                     .title("Ongoing Projects")
-                    .filter('_type == "galleryProject" && status == "Ongoing"')
+                    .filter('_type == "project" && (status == "ongoing" || status == "Ongoing")')
                 ),
               S.listItem()
                 .title("Completed Projects")
                 .child(
                   S.documentList()
                     .title("Completed Projects")
-                    .filter('_type == "galleryProject" && status == "Completed"')
+                    .filter('_type == "project" && (status == "completed" || status == "Completed")')
                 ),
               S.divider(),
-              S.documentTypeListItem("galleryProject").title("All Gallery Projects"),
+              S.documentTypeListItem("project").title("All Gallery Projects"),
             ])
         ),
 

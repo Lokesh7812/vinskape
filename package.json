@@ -7,7 +7,7 @@
     "build": "next build",
     "lint": "eslint .",
     "studio": "sanity dev",
-    "seed:sanity": "tsx scripts/seedSanity.ts"
+    "seed:sanity": "tsx scripts/seed-sanity.ts"
   },
   "dependencies": {
     "@sanity/client": "^7.6.0",
@@ -22,6 +22,7 @@
     "@types/node": "^22",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "dotenv": "^18.0.10",
     "eslint": "^9",
     "eslint-config-next": "^15.2.0",
     "tsx": "^4.19.3",
