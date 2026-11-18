@@ -1,7 +1,6 @@
 import { defineConfig } from "sanity";
 import { structureTool } from "sanity/structure";
 import { schemaTypes } from "./src/sanity/schemas";
-
 import { deskStructure } from "./src/sanity/deskStructure";
 
 const projectId =
@@ -14,18 +13,35 @@ const dataset =
   process.env.SANITY_STUDIO_DATASET ||
   "production";
 
-export default defineConfig({
-  name: "vinskape",
-  title: "Vinskape Content Studio",
-  projectId,
-  dataset,
-  basePath: process.env.NEXT_PUBLIC_SANITY_STUDIO_URL || "/studio",
-  plugins: [
-    structureTool({
-      structure: deskStructure,
-    }),
-  ],
-  schema: {
-    types: schemaTypes,
+export default defineConfig([
+  {
+    name: "admin",
+    title: "Vinskape Content Studio",
+    projectId,
+    dataset,
+    basePath: "/admin",
+    plugins: [
+      structureTool({
+        structure: deskStructure,
+      }),
+    ],
+    schema: {
+      types: schemaTypes,
+    },
   },
-});
+  {
+    name: "studio",
+    title: "Vinskape Content Studio",
+    projectId,
+    dataset,
+    basePath: "/studio",
+    plugins: [
+      structureTool({
+        structure: deskStructure,
+      }),
+    ],
+    schema: {
+      types: schemaTypes,
+    },
+  },
+]);
