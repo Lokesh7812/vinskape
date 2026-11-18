@@ -9,7 +9,7 @@ import { PageTransition } from "./PageTransition";
 
 export function SiteChrome({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  const isAdmin = pathname?.startsWith("/admin");
+  const isAdmin = pathname?.startsWith("/admin") || pathname?.startsWith("/studio");
 
   if (isAdmin) {
     return <>{children}</>;
