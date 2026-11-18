@@ -8,14 +8,14 @@ export function Footer() {
         <div className="footer-brand">
           <Link href="/" aria-label="VINSKAPE Home" className="footer-logo-link">
             <Image
-              src="/VK Logo.png"
-              alt="VINSKAPE VK"
-              width={72}
-              height={46}
+              src="/vinskape-logo.png"
+              alt="VINSKAPE"
+              width={180}
+              height={40}
               className="footer-vk-logo"
+              style={{ height: "36px", width: "auto", objectFit: "contain" }}
             />
           </Link>
-          <h2>VINSKAPE</h2>
           <p>Crafting Spaces. Defining Lifestyles.</p>
         </div>
         <div className="footer-links">

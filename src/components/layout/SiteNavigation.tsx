@@ -104,7 +104,7 @@ export function SiteNavigation() {
     <header className={`nav ${scrolled || !isHome ? "scrolled" : ""}`}>
       <Link href="/" className="wordmark" aria-label="VINSKAPE">
         <Image
-          src="/Logo Vinskape.png"
+          src="/vinskape-logo.png"
           alt="VINSKAPE"
           width={155}
           height={34}
@@ -199,7 +199,7 @@ export function SiteNavigation() {
         >
           <Link href="/" onClick={() => setOpen(false)} aria-label="VINSKAPE" style={{ display: "flex", alignItems: "center" }}>
             <Image
-              src="/Logo Vinskape.png"
+              src="/vinskape-logo.png"
               alt="VINSKAPE"
               width={124}
               height={27}
@@ -286,9 +286,9 @@ export function SiteNavigation() {
           }}
         >
           <Image
-            src="/VK Logo.png"
-            alt="VK"
-            width={40}
+            src="/vinskape-logo.png"
+            alt="VINSKAPE"
+            width={100}
             height={25}
             style={{ height: "24px", width: "auto", objectFit: "contain", opacity: 0.85 }}
           />
